@@ -17,8 +17,7 @@ class BookSearch extends React.Component {
     }
 
     async componentDidMount() {
-        const response = await BooksAPI.getAll();
-        const booksObj = Object.assign({}, ...response.map((book) => ({ [book.id]: book })));
+        const booksObj = Object.assign({}, ...this.props.books.map((book) => ({ [book.id]: book })));
         this.setState({ shelvedBooks: booksObj });
     }
 
@@ -44,6 +43,7 @@ class BookSearch extends React.Component {
 
     onHandleChangeCardShelf = async (book, shelf) => {
         await BooksAPI.update(book, shelf);
+        this.props.getAllBooks()
     }
 
     render() {

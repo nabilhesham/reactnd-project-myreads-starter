@@ -17,11 +17,15 @@ class BookCard extends React.Component {
 
     render() {
         const { bookObj } = this.props;
+        let img = null
+        try {
+            img = bookObj.imageLinks.thumbnail
+        } catch (e) { }
         return (
             <li>
                 <div className="book">
                     <div className="book-top">
-                        <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${bookObj.imageLinks.thumbnail}")` }}></div>
+                        <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${img}")` }}></div>
                         <div className="book-shelf-changer">
                             <select value={this.state.selectedShelf} onChange={this.onHandleChangeShelf}>
                                 <option value="move" disabled>Move to...</option>

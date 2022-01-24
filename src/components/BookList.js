@@ -6,24 +6,11 @@ import BookCard from './BookCard';
 
 
 class BooksList extends React.Component {
-    state = {
-        books: [],
-    }
-
-    async componentDidMount() {
-        this.getAllBooks()
-    }
-
-    getAllBooks = async () => {
-        const response = await BooksAPI.getAll();
-        this.setState({ books: response });
-    }
 
     onHandleChangeCardShelf = async (book, shelf) => {
         await BooksAPI.update(book, shelf);
-        this.getAllBooks()
+        this.props.getAllBooks()
     }
-
 
     render() {
         return (
@@ -37,7 +24,7 @@ class BooksList extends React.Component {
                             <h2 className="bookshelf-title">Currently Reading</h2>
                             <div className="bookshelf-books">
                                 <ol className="books-grid">
-                                    {this.state.books.map((book) => {
+                                    {this.props.books.map((book) => {
                                         if (book.shelf === "currentlyReading") {
                                             return (<BookCard bookObj={book} key={book.id} onHandleChangeCardShelf={this.onHandleChangeCardShelf} />)
                                         } else {
@@ -51,7 +38,7 @@ class BooksList extends React.Component {
                             <h2 className="bookshelf-title">Want to Read</h2>
                             <div className="bookshelf-books">
                                 <ol className="books-grid">
-                                    {this.state.books.map((book) => {
+                                    {this.props.books.map((book) => {
                                         if (book.shelf === "wantToRead") {
                                             return (<BookCard bookObj={book} key={book.id} onHandleChangeCardShelf={this.onHandleChangeCardShelf} />)
                                         } else {
@@ -65,7 +52,7 @@ class BooksList extends React.Component {
                             <h2 className="bookshelf-title">Read</h2>
                             <div className="bookshelf-books">
                                 <ol className="books-grid">
-                                    {this.state.books.map((book) => {
+                                    {this.props.books.map((book) => {
                                         if (book.shelf === "read") {
                                             return (<BookCard bookObj={book} key={book.id} onHandleChangeCardShelf={this.onHandleChangeCardShelf} />)
                                         } else {
