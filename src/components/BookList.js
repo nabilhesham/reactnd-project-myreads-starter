@@ -11,8 +11,17 @@ class BooksList extends React.Component {
     }
 
     async componentDidMount() {
+        this.getAllBooks()
+    }
+
+    getAllBooks = async () => {
         const response = await BooksAPI.getAll();
         this.setState({ books: response });
+    }
+
+    onHandleChangeCardShelf = async (book, shelf) => {
+        await BooksAPI.update(book, shelf);
+        this.getAllBooks()
     }
 
 
@@ -30,7 +39,7 @@ class BooksList extends React.Component {
                                 <ol className="books-grid">
                                     {this.state.books.map((book) => {
                                         if (book.shelf === "currentlyReading") {
-                                            return (<BookCard bookObj={book} key={book.id} />)
+                                            return (<BookCard bookObj={book} key={book.id} onHandleChangeCardShelf={this.onHandleChangeCardShelf} />)
                                         } else {
                                             return null
                                         }
@@ -44,7 +53,7 @@ class BooksList extends React.Component {
                                 <ol className="books-grid">
                                     {this.state.books.map((book) => {
                                         if (book.shelf === "wantToRead") {
-                                            return (<BookCard bookObj={book} key={book.id} />)
+                                            return (<BookCard bookObj={book} key={book.id} onHandleChangeCardShelf={this.onHandleChangeCardShelf} />)
                                         } else {
                                             return null
                                         }
@@ -58,7 +67,7 @@ class BooksList extends React.Component {
                                 <ol className="books-grid">
                                     {this.state.books.map((book) => {
                                         if (book.shelf === "read") {
-                                            return (<BookCard bookObj={book} key={book.id} />)
+                                            return (<BookCard bookObj={book} key={book.id} onHandleChangeCardShelf={this.onHandleChangeCardShelf} />)
                                         } else {
                                             return null
                                         }

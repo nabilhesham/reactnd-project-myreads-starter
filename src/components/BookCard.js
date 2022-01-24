@@ -1,12 +1,13 @@
 import React from 'react';
 
+
 class BookCard extends React.Component {
     state = {
         selectedShelf: this.props.bookObj.shelf,
     }
 
-    onHandleChangeShelf = (e) => {
-        console.log(e.target.value);
+    onHandleChangeShelf = async (e) => {
+        this.props.onHandleChangeCardShelf(this.props.bookObj, e.target.value);
     }
 
     render() {
